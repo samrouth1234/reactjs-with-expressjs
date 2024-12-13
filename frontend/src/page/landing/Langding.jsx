@@ -3,28 +3,43 @@ import Card from "../../component/card/Card";
 
 const Landing = () => {
   const [users, setUsers] = useState([]);
-  // fetch data from backend
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     fetch("http://localhost:8080/api/v1/users")
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        return res.json();
+      })
       .then((data) => {
-        console.log("Data",data);
+        console.log("Fetched Users:", data);
         setUsers(data);
       })
-      .catch((error) => {
-        console.error("Error fetching users:", error);
+      .catch((err) => {
+        console.error("Error fetching users:", err.message);
+        setError(err.message);
       });
-  }, []);  
+  }, []);
 
   return (
     <div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      {users.map((user) => (
-        <Card key={user.id} id={user.id} name={user.name} email={user.email} create_date={user.create_date} />
-      ))}
+      {error ? (
+        <p>Error loading users: {error}</p>
+      ) : (
+        users.map((user) => (
+          <Card
+            key={user.id}
+            id={user.id}
+            name={user.name}
+            email={user.email}
+            create_date={user.create_date}
+          />
+        ))
+      )}
     </div>
   );
 };
 
 export default Landing;
-

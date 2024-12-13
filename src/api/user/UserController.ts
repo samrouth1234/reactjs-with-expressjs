@@ -1,13 +1,12 @@
 import { Request, Response } from "express";
-import { UserService } from "../service/UserService";
+import { UserService } from "./UserService";
 
-export class UserController{
-
+export class UserController {
   // inject the UserService
   private userService: UserService;
 
   // create an constructor to initialize the UserService
-  constructor(){
+  constructor() {
     this.userService = new UserService();
   }
 
@@ -23,21 +22,29 @@ export class UserController{
   }
 
   // Get User By Id
-  async getUserById(req : Request , res:Response ): Promise<void> {
+  async getUserById(req: Request, res: Response): Promise<void> {
     try {
       // parse the id from the request
-      const user = await this.userService.getUserById(Number(req.params.id));
+      const user = await this.userService.getUserById(
+        Number(req.params.id),
+        res
+      );
       res.status(200).json(user);
     } catch (err: any) {
       console.error(err.message);
-      res.status(500).send("Server Error"); 
+      res.status(500).send("Server Error");
     }
   }
 
   // Create User
   async createUser(req: Request, res: Response): Promise<void> {
     try {
-      const user = await this.userService.createUser(req.body.name, req.body.email);
+      const user = await this.userService.createUser(
+        req.body.name,
+        req.body.email,
+        req.body.password,
+        req.body.role
+      );
       res.status(201).json(user);
     } catch (err: any) {
       console.error(err.message);
@@ -48,7 +55,12 @@ export class UserController{
   // Update User
   async updateUser(req: Request, res: Response): Promise<void> {
     try {
-      const user = await this.userService.updateUser(Number(req.params.id), req.body.name, req.body.email);
+      const user = await this.userService.updateUser(
+        Number(req.params.id),
+        req.body.name,
+        req.body.email,
+        res
+      );
       res.status(200).json(user);
     } catch (err: any) {
       console.error(err.message);
@@ -57,11 +69,14 @@ export class UserController{
   }
 
   // Delete user by Id
-  async deleteUserById(req: Request , res: Response): Promise<void> {
-    try{
-      const user = await this.userService.deleteUser(Number(req.params.id));
+  async deleteUserById(req: Request, res: Response): Promise<void> {
+    try {
+      const user = await this.userService.deleteUser(
+        Number(req.params.id),
+        res
+      );
       res.status(200).json(user);
-    }catch(err:any){
+    } catch (err: any) {
       console.error(err.message);
       res.status(500).send("Server Error");
     }
