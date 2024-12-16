@@ -1,6 +1,4 @@
 
-export const ROOT_ROUTE = "/";
-export const SOMETHING_WENT_WRONG= "/something-went-wrong";
 export const LANDING_PAGE= "/";
 export const ABOUT_US_PAGE = "/about-us";
 export const SERVICE_PAGE = "/service";
