@@ -4,33 +4,37 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { FcGoogle } from "react-icons/fc";
+import { useAuth } from "../../../hooks/Auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8080/api/v1/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        toast.error(data.message || "Something went wrong!");
-        return;
-      }
-      toast("Login successfully");
+      await login(email, password); // Call login function
+      toast.success("Login successful!");
+      // const response = await fetch("http://localhost:8080/api/v1/auth/login", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({ email, password }),
+      // });
+      // const data = await response.json();
+      // if (!response.ok) {
+      //   toast.error(data.message || "Something went wrong!");
+      //   return;
+      // }
+      // toast("Login successfully");
       setTimeout(() => navigate("/"), 1000);
     } catch (error) {
-      toast.error("Unable to connect to the server. Please try again.");
+      // toast.error("Unable to connect to the server. Please try again.");
+      toast.error(error.message || "Login failed!");
     }
   };
 
