@@ -24,7 +24,7 @@ const Landing = () => {
   }, []);
 
   return (
-    <div className="mt-20">
+    <div>
       {error ? (
         <p>Error loading users: {error}</p>
       ) : (

@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import { AuthService } from "./AuthService";
 
-export class AuthController{
-    
+export class AuthController {
   private authService: AuthService;
 
   constructor() {
@@ -10,43 +9,79 @@ export class AuthController{
   }
 
   async Register(req: Request, res: Response): Promise<void> {
-    await this.authService.registerUser(req, res);
+    try {
+      await this.authService.registerUser(req, res);
+    } catch (error: any) {
+      console.error("Error in Register controller:", error);
+      res.status(500).json({ message: "Server error during registration" });
+    }
   }
 
   async Login(req: Request, res: Response): Promise<void> {
-    await this.authService.loginUser(req, res);
+    try {
+      await this.authService.loginUser(req, res);
+    } catch (error: any) {
+      console.error("Error in Login controller:", error);
+      res.status(500).json({ message: "Server error during login" });
+    }
   }
-  
-    // Get User Profile
-    // async getUserProfile(req: Request, res: Response): Promise<void> {
-    //   try {
-    //     const user = await this.authService.getUserProfile(Number(req.params.id));
-    //     res.status(200).json(user);
-    //   } catch (err: any) {
-    //     console.error(err.message);
-    //     res.status(500).send("Server Error");
-    //   }
-    // }
-  
-    // Update User Profile
-    // async updateUserProfile(req: Request, res: Response): Promise<void> {
-    //   try {
-    //     const user = await this.authService.updateUserProfile(Number(req.params.id), req.body.name, req.body.email);
-    //     res.status(200).json(user);
-    //   } catch (err: any) {
-    //     console.error(err.message);
-    //     res.status(500).send("Server Error");
-    //   }
-    // }
-  
-    // Delete User Profile
-    // async deleteUserProfile(req: Request, res: Response): Promise<void> {
-    //   try {
-    //     const user = await this.authService.deleteUserProfile(Number(req.params.id));
-    //     res.status(200).json(user);
-    //   } catch (err: any) {
-    //     console.error(err.message);
-    //     res.status(500).send("Server Error");
-    //   }
-    // }
+
+  // Get User Profile
+  async GetUserProfile(req: Request, res: Response): Promise<void> {
+    try {
+      const userID = Number(req.params.id);
+      if (isNaN(userID)) {
+        res.status(400).json({ message: "Invalid user ID" });
+        return;
+      }
+      await this.authService.getUserProfile(req, res);
+    } catch (error: any) {
+      console.error("Error in GetUserProfile controller:", error);
+      res.status(500).json({ message: "Server error during get user profile" });
+    }
+  }
+
+  // Update User Profile
+  async UpdateUserProfile(req: Request, res: Response): Promise<void> {
+    try {
+      const userID = Number(req.params.id);
+      if (isNaN(userID)) {
+        res.status(400).json({ message: "Invalid user ID" });
+        return;
+      }
+      await this.authService.updateUserProfile(req, res);
+    } catch (error: any) {
+      console.error("Error in UpdateUserProfile controller:", error);
+      res
+        .status(500)
+        .json({ message: "Server error during update user profile" });
+    }
+  }
+
+  // Delete User Profile
+  async DeleteUserProfile(req: Request, res: Response): Promise<void> {
+    try {
+      const userID = Number(req.params.id);
+      if (isNaN(userID)) {
+        res.status(400).json({ message: "Invalid user ID" });
+        return;
+      }
+      await this.authService.deleteUserProfile(req, res);
+    } catch (error: any) {
+      console.error("Error in DeleteUserProfile controller:", error);
+      res
+        .status(500)
+        .json({ message: "Server error during delete user profile" });
+    }
+  }
+
+  // Logout User
+  async LogoutUser(req: Request, res: Response): Promise<void> {
+    try {
+      await this.authService.logoutUser(req, res);
+    } catch (error: any) {
+      console.error("Error in Logout controller:", error);
+      res.status(500).json({ message: "Server error during logout" });
+    }
+  }
 }

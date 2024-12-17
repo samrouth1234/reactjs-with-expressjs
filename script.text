@@ -7,7 +7,7 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-ALTER TABLE users ADD COLUMN role VARCHAR(50) DEFAULT 'user' NOT NULL;
+ALTER TABLE users ADD COLUMN role VARCHAR(50) DEFAULT 'user' NOT NULL; ## default value of role it is user
 
 INSERT INTO users(name, email , password , role)
 VALUES ('user','user@gmail.com','user' ,'user'),

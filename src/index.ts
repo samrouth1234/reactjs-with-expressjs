@@ -52,6 +52,22 @@ export class AppController {
       "/api/v1/auth/login",
       this.authController.Login.bind(this.authController)
     );
+    this.app.get(
+      "/api/v1/auth/profile/:id",
+      this.authController.GetUserProfile.bind(this.authController)
+    );
+    this.app.put(
+      "/api/v1/auth/profile/:id",
+      this.authController.UpdateUserProfile.bind(this.authController)
+    );
+    this.app.delete(
+      "/api/v1/auth/profile/:id",
+      this.authController.DeleteUserProfile.bind(this.authController)
+    );
+    this.app.post(
+      "/api/v1/auth/logout",
+      this.authController.LogoutUser.bind(this.authController)
+    );
   }
 
   public start(port: number): void {

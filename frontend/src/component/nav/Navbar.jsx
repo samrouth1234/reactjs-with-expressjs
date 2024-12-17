@@ -7,7 +7,7 @@ import { FaUser } from "react-icons/fa";
 
 const Navbar = () => {
   return ( 
-		<nav className="bg-white fixed w-full top-0 start-0 border-gray-200">
+		<nav className="bg-white border-gray-200"> 
 			<section className="border">
 				<div className="container max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-3 md:px-0 px-3">
 					<a href="/">
@@ -18,12 +18,16 @@ const Navbar = () => {
               <span>
 							  <IoSearch size={24}/>
               </span>
-							<button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots" className="relative inline-flex items-center p-3 text-sm font-medium text-center text-black rounded-lg">
-                <CgProfile size={24}/>
+							<button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots">
+								<CgProfile size={24} />
 							</button>
 							<div id="dropdownDots" className="bg-white border shadow-md md:w-[200px] rounded-lg hidden">
-                <Link to={'/login'} className="flex items-center gap-3 py-3 px-4 hover:bg-gray-200"><span><FaUser /></span> Login </Link>
-                <Link to={'/register'} className="flex items-center gap-3 py-3 px-4 hover:bg-gray-200"><span><FaUserPlus  size={20}/> </span> Register </Link>  
+								<Link to="/login" className="flex items-center gap-3 py-3 px-4 hover:bg-gray-200">
+									<span><FaUser /></span> Login
+								</Link>
+								<Link to="/register" className="flex items-center gap-3 py-3 px-4 hover:bg-gray-200">
+									<span><FaUserPlus size={20} /> </span> Register
+								</Link>
 							</div>
 							<button data-collapse-toggle="navbar-cta" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm md:hidden" aria-controls="navbar-cta" aria-expanded="false">
 								<span className="sr-only">Open main menu</span>
