@@ -16,19 +16,16 @@ const Navbar = () => {
         <div className="container max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-3 md:px-0 px-3">
           <a href="/">
             <span className="self-center text-2xl font-semibold whitespace-nowrap">
-              VBlog
+              KhmengCode
             </span>
           </a>
           <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <section className="flex items-center space-x-2">
-              <span>
-                <IoSearch size={24} />
-              </span>
               <button
                 id="dropdownMenuIconButton"
                 data-dropdown-toggle="dropdownDots"
               >
-                <CgProfile size={24} />
+                <CgProfile size={28} />
               </button>
               {/* login success show name user and logout */}
               <div
